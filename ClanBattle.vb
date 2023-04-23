@@ -726,7 +726,7 @@ Public Class ClanBattle
                 Reply($"{m.NickName} 没有SL记录")
             End If
 
-        Else
+        ElseIf cmd = "" Then
             If m.SLUsed Then
                 Reply($"错误：{m.NickName} SL已用，于{m.SLTime.ToString("yyyy-MM-dd HH:mm:ss")}")
             Else
@@ -762,7 +762,7 @@ Public Class ClanBattle
             If q.QName = "预约表" Then
                 For i As Long = 0 To q.QMember.Count - 1
                     Dim qm As QueueInfo.QItem = q.QMember(i)
-                    If qm.QInfo = $"预约{qnum}" Then
+                    If qm.QInfo = $"预约{qnum}" AndAlso qm.QMember.QQID.ToString = qqid Then
                         q.QMember.Remove(qm)
                         Return qm.Message
                     End If
@@ -1144,7 +1144,7 @@ Public Class ClanBattle
         If qNEsum = 0 Then
             If yybOnly Then result.AppendLine("预约表为空")
         Else
-            result.Append("==============")
+            result.AppendLine("==============")
         End If
         Return result.ToString
     End Function
